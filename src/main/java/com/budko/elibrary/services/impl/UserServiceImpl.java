@@ -1,6 +1,7 @@
 package com.budko.elibrary.services.impl;
 
 import com.budko.elibrary.entities.User;
+import com.budko.elibrary.entities.enums.UserRoles;
 import com.budko.elibrary.repositories.UserRepository;
 import com.budko.elibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        user.setRole(UserRoles.USER);
+        user.setEnabled(true);
+        return userRepository.saveAndFlush(user);
     }
 }
