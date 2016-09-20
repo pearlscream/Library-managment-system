@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ELibrary123</name>
+	<name>ELibrary</name>
 	<description>Spring project smart library</description>
 
 	<parent>
