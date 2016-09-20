@@ -1,13 +1,19 @@
 package com.budko.elibrary.controllers;
 
 import com.budko.elibrary.entities.User;
+import com.budko.elibrary.exceptions.UserExistException;
 import com.budko.elibrary.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 /**
  * @author DBudko.
@@ -23,13 +29,13 @@ public class UserController {
         model.addAttribute("user",new User());
         return "registration";
     }
-    @RequestMapping(value = "/addUser")
-    public String addUser(@ModelAttribute("user")User user, Model model) {
-        log.info("New user registration");
+    @RequestMapping(value = "/addUser",method = RequestMethod.POST)
+    public String addUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult, Model model) throws UserExistException {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
         userService.saveUser(user);
-        System.out.println(user.getUsername());
-        System.out.println(user.getBirthday());
 //        user.setBirthday("20-12.2015");
-        return "hello";
+        return "redirect:/login";
     }
 }

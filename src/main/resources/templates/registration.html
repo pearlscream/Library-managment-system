@@ -33,38 +33,66 @@
         <form action="#" th:action="@{/addUser}" th:object="${user}" method="post" class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="Email(Логін)" th:field="*{username}" id="first_name" type="email" class="validate">
-                    <label for="first_name">Email(Логін)</label>
+                    <input placeholder="Email(Логін)" th:field="*{username}" th:class="${#fields.hasErrors('username')}? fieldError" id="email" type="email" class="validate">
+                    <label for="email">Email(Логін)</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('username')}" th:text="${err}" />
+                    </ul>
                 </div>
                 <div class="input-field col s6">
-                    <input id="last_name" th:field="*{password}" type="password" class="validate">
-                    <label for="last_name">Пароль</label>
+                    <input id="password" th:field="*{password}" type="password" class="validate">
+                    <label for="password">Пароль</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('password')}" th:text="${err}" />
+                    </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s4">
-                    <input placeholder="Ім'я" th:field="*{firstName}" id="first_name" type="text" class="validate">
-                    <label for="first_name">Ім'я</label>
+                    <input placeholder="Ім'я" th:field="*{firstName}" id="firstName" type="text" class="validate">
+                    <label for="firstName">Ім'я</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('firstName')}" th:text="${err}" />
+                    </ul>
                 </div>
                 <div class="input-field col s4">
-                    <input id="last_name" th:field="*{lastName}" type="text" class="validate">
-                    <label for="last_name">Прізвище</label>
+                    <input id="lastName" th:field="*{lastName}" type="text" class="validate">
+                    <label for="lastName">Прізвище</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('lastName')}" th:text="${err}" />
+                    </ul>
                 </div>
                 <div class="input-field col s4">
-                    <input id="last_name" th:field="*{middleName}" type="text" class="validate">
-                    <label for="last_name">По-батькові</label>
+                    <input id="middleName" th:field="*{middleName}" type="text" class="validate">
+                    <label for="middleName">По-батькові</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('middleName')}" th:text="${err}" />
+                    </ul>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <i class="material-icons prefix">textsms</i>
-                    <input th:field="*{address}" type="text" id="autocomplete-input" class="autocomplete">
-                    <label for="autocomplete-input">Адреса</label>
+                    <input th:field="*{address}" type="text" id="address" class="autocomplete">
+                    <label for="address">Адреса</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('address')}" th:text="${err}" />
+                    </ul>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <i class="material-icons prefix">phone</i>
                     <input th:field="*{phoneNumber}" id="icon_telephone" type="tel" class="validate">
                     <label for="icon_telephone">Телефон</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}" />
+                    </ul>
+                </div>
+                <div class="input-field col s4">
+                    <input th:field="*{passport}" id="passport" type="text" class="validate">
+                    <label for="password">Паспорт</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('passport')}" th:text="${err}" />
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -72,16 +100,36 @@
                     <label for="birthdate" class="">Дата народження</label>
                 </div>
                 <div class="input-field col s10">
-                    <input th:field="*{birthday}" type="date" class="datepicker">
+                    <input id="birthdate" th:field="*{birthday}" type="date" class="datepicker">
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('birthday')}" th:text="${err}" />
+                    </ul>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
-                    <input th:field="*{workPlace}" id="works" type="text" class="validate">
-                    <label for="work">Місце роботи</label>
+                <div class="input-field col s4">
+                    <input th:field="*{position}" id="position" type="text" class="validate">
+                    <label for="faculty">Посада</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('position')}" th:text="${err}" />
+                    </ul>
+                </div>
+                <div class="input-field col s4">
+                    <input th:field="*{faculty}" id="faculty" type="text" class="validate">
+                    <label for="faculty">Факультет</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('faculty')}" th:text="${err}" />
+                    </ul>
+                </div>
+                <div class="input-field col s4">
+                    <input th:field="*{department}" id="department" type="text" class="validate">
+                    <label for="department">Підрозділ</label>
+                    <ul>
+                        <li th:class="errorMessage" th:each="err : ${#fields.errors('department')}" th:text="${err}" />
+                    </ul>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <button class="btn waves-effect waves-light" type="submit" name="action">Зареєструватися
                 <i class="material-icons right">send</i>
             </button>
         </form>

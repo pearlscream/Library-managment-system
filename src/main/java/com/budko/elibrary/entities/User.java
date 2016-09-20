@@ -1,12 +1,15 @@
 package com.budko.elibrary.entities;
 
 import com.budko.elibrary.entities.enums.UserRoles;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,23 +22,41 @@ import java.util.Locale;
  * @author DBudko.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "viewer_card")
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "user_Id")
     private Integer id;
+    @NotEmpty(message = "Email не може бути пустим")
+    @Email(message = "Введіть коректний email")
     private String username;
+    @NotEmpty(message = "Пароль не може бути пустим")
     private String password;
+    @NotEmpty(message = "Будь ласка, введіть ім'я")
+    @Column(name = "first_name")
     private String firstName;
+    @NotEmpty(message = "Будь ласка, введіть прізвище")
+    @Column(name = "last_name")
     private String lastName;
+    @NotEmpty(message = "Будь ласка, введіть по-батькові")
+    @Column(name = "middle_name")
     private String middleName;
+    @NotEmpty(message = "Заповніть будь-ласка адресу")
     private String address;
+    @NotEmpty(message = "Введіть телефон")
     private String phoneNumber;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Calendar birthday;
-    private String workPlace;
+    @NotEmpty(message = "Введіть ваш факультет")
+    private String faculty;
+    @NotEmpty(message = "Введіть вашу посаду")
+    private String position;
+    @NotEmpty(message = "Введіть ваш підрозділ")
+    private String department;
+    @NotEmpty(message = "Введіть ваші паспортні дані")
+    private String passport;
     private boolean enabled;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "roleid")
@@ -126,12 +147,36 @@ public class User implements UserDetails{
         this.birthday = birthday;
     }
 
-    public String getWorkPlace() {
-        return workPlace;
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setWorkPlace(String workPlace) {
-        this.workPlace = workPlace;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 
     //     User details methods

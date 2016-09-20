@@ -1,3 +1,11 @@
 .test {
     color:blue;
 }
+
+.fieldError {
+    border-color:red;
+}
+
+.errorMessage {
+    color: red;
+}

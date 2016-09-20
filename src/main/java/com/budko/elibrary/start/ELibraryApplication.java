@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.budko.elibrary.repositories")
 @EntityScan("com.budko.elibrary.entities")
 public class ELibraryApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ELibraryApplication.class, args);
 	}
