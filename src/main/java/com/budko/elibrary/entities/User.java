@@ -49,8 +49,6 @@ public class User implements UserDetails{
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Calendar birthday;
-    @NotEmpty(message = "Введіть ваш факультет")
-    private String faculty;
     @NotEmpty(message = "Введіть вашу посаду")
     private String position;
     @NotEmpty(message = "Введіть ваш підрозділ")
@@ -61,6 +59,9 @@ public class User implements UserDetails{
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "roleid")
     private UserRoles role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -147,14 +148,6 @@ public class User implements UserDetails{
         this.birthday = birthday;
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -216,6 +209,15 @@ public class User implements UserDetails{
         return enabled;
     }
 
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -228,12 +230,12 @@ public class User implements UserDetails{
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthday=" + birthday +
-                ", faculty='" + faculty + '\'' +
                 ", position='" + position + '\'' +
                 ", department='" + department + '\'' +
                 ", passport='" + passport + '\'' +
                 ", enabled=" + enabled +
                 ", role=" + role +
+                ", faculty=" + faculty +
                 '}';
     }
 }
