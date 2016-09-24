@@ -216,5 +216,24 @@ public class User implements UserDetails{
         return enabled;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthday=" + birthday +
+                ", faculty='" + faculty + '\'' +
+                ", position='" + position + '\'' +
+                ", department='" + department + '\'' +
+                ", passport='" + passport + '\'' +
+                ", enabled=" + enabled +
+                ", role=" + role +
+                '}';
+    }
 }

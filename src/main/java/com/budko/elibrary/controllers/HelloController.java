@@ -1,5 +1,7 @@
 package com.budko.elibrary.controllers;
 
+import com.budko.elibrary.repositories.BookRepository;
+import com.budko.elibrary.services.BookService;
 import com.budko.elibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,12 +17,16 @@ public class HelloController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BookService bookService;
+
     @RequestMapping("/")
     public String index() {
         return "hello";
     }
     @RequestMapping("/login")
     public String login() {
+        System.out.println(bookService.getAllBooks());
         return "login";
     }
 
