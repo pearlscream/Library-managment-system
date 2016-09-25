@@ -139,13 +139,13 @@
 
 <ul class="pagination">
     <li th:unless="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
-        <a th:href="@{'/?page=' + ${books.number - 1}}"><i class="material-icons">chevron_left</i></a></li>
+        <a th:href="@{'/?page=' + ${books.number}}"><i class="material-icons">chevron_left</i></a></li>
     <li th:if="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
         <a href="javascript:"><i class="material-icons">chevron_left</i></a></li>
     <th:block th:each="i : ${#numbers.sequence(0,books.totalPages-1)}">
-        <li th:classappend="${i eq books.number} ? active : waves-effect"><a th:text="${i+1}" th:href="@{'/?page=' + ${i}}"></a></li>
+        <li th:classappend="${i eq books.number} ? active : waves-effect"><a th:text="${i+1}" th:href="@{'/?page=' + ${i+1}}"></a></li>
     </th:block>
-    <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a th:href="@{'/?page=' + ${books.number + 1}}"><i class="material-icons">chevron_right</i></a></li>
+    <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a th:href="@{'/?page=' + ${books.number + 2}}"><i class="material-icons">chevron_right</i></a></li>
     <li th:if="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a href="javascript:"><i class="material-icons">chevron_right</i></a></li>
 </ul>
 <footer th:replace="elements/footer :: footer"></footer>

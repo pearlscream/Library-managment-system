@@ -5,6 +5,7 @@ import com.budko.elibrary.repositories.BookRepository;
 import com.budko.elibrary.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<Book> getAllBooks(Pageable pageable) {
-        return bookRepository.findAll(pageable);
+        Pageable request = new PageRequest(pageable.getPageNumber()-1,pageable.getPageSize(),pageable.getSort());
+        return bookRepository.findAll(request);
     }
 }
