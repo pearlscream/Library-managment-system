@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         }
         Faculty faculty = facultyRepository.findOne(1);
         user.setFaculty(faculty);
-        System.out.println("TEST:: " + user.getFaculty());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(UserRoles.USER);
         user.setEnabled(true);

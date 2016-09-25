@@ -137,7 +137,7 @@
     </div>
 </div>
 
-<ul class="pagination">
+<ul class="center pagination">
     <li th:unless="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
         <a th:href="@{'/?page=' + ${books.number}}"><i class="material-icons">chevron_left</i></a></li>
     <li th:if="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">

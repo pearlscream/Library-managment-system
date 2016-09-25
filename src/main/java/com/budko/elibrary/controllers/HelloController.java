@@ -31,14 +31,12 @@ public class HelloController {
     @RequestMapping("/")
     public String index(Model model, @PageableDefault(page = 1,value = 6)Pageable pageable) {
         Page<Book> page = this.bookService.getAllBooks(pageable);
-        System.out.println(page.getNumber());
         model.addAttribute("books", page);
         return "index";
     }
 
     @RequestMapping("/login")
     public String login() {
-        System.out.println(bookService.getAllBooks());
         return "login";
     }
 
