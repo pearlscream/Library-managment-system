@@ -23,11 +23,66 @@
 
     </div>
 </div>
-
-
 <div class="container">
-    <div th:each="book,bookStat : ${books}" class="row">
-        <div class="col s4">
+    <div class="row">
+        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index lt 3}" class="col s4">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" th:src="@{'images/' + ${book.imageLink}}">
+                </div>
+                <div class="card-content">
+                    <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
+                            class="material-icons right">more_vert</i></span>
+                    <p th:text="${book.description}"></p>
+                    <p><a href="#">Заказать книгу</a></p>
+                </div>
+                <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Игра престолов<i
+                        class="material-icons right">close</i></span>
+                    <div>
+                        <span class="materialize-red-text">Авторы:</span>
+                        <th:block th:each="author,authorStat : ${book.authors}">
+                            <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
+                        </th:block>
+                    </div>
+                    <p>
+                        <span class="materialize-red-text">Издатель:</span>
+                        <span th:text="${book.publisher}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">УДК:</span>
+                        <span th:text="${book.udkCategory.id} + ' ' + ${book.udkCategory.categoryName}">4: Прочее</span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">Год издательства:</span>
+                        <span th:text="${book.publishYear}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">Количество страниц:</span>
+                        <span th:text="${book.pagesCount}"></span>
+                    </p>
+
+                    <p>
+                        <span class="materialize-red-text">Издание:</span>
+                        <span th:text="${book.publication}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">В наличии:</span>
+                        <th:block th:each="bookCard,bookCardStat : ${book.bookCards}">
+                            <span th:text="${bookCard.id} + ', '"></span>
+                        </th:block>
+                    </p>
+
+                    <p><span class="materialize-red-text">Описание:</span>
+                        <span th:text="${book.description}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index gt 2}" class="col s4">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" th:src="@{'images/' + ${book.imageLink}}">
@@ -79,303 +134,19 @@
                 </div>
             </div>
         </div>
-
-        <div class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/2.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Игра престолов<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</p>
-                    <p><a href="#">Заказать книгу</a></p>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
-                        class="material-icons right">close</i></span>
-                    <p>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <span>Первый автор;</span>
-                        <span>Второй автор;</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span>Литрес</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span>4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span>1996</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span>1000</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span>Новое</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <span>12312312,</span>
-                        <span>53453245,</span>
-                        <span>65463464,</span>
-                        <span>53425235,</span>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/2.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Игра престолов<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</p>
-                    <p><a href="#">Заказать книгу</a></p>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
-                        class="material-icons right">close</i></span>
-                    <p>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <span>Первый автор;</span>
-                        <span>Второй автор;</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span>Литрес</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span>4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span>1996</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span>1000</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span>Новое</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <span>12312312,</span>
-                        <span>53453245,</span>
-                        <span>65463464,</span>
-                        <span>53425235,</span>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/2.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Игра престолов<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</p>
-                    <p><a href="#">Заказать книгу</a></p>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
-                        class="material-icons right">close</i></span>
-                    <p>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <span>Первый автор;</span>
-                        <span>Второй автор;</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span>Литрес</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span>4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span>1996</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span>1000</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span>Новое</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <span>12312312,</span>
-                        <span>53453245,</span>
-                        <span>65463464,</span>
-                        <span>53425235,</span>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</span></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/2.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Игра престолов<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</p>
-                    <p><a href="#">Заказать книгу</a></p>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
-                        class="material-icons right">close</i></span>
-                    <p>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <span>Первый автор;</span>
-                        <span>Второй автор;</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span>Литрес</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span>4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span>1996</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span>1000</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span>Новое</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <span>12312312,</span>
-                        <span>53453245,</span>
-                        <span>65463464,</span>
-                        <span>53425235,</span>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/2.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Игра престолов<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</p>
-                    <p><a href="#">Заказать книгу</a></p>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
-                        class="material-icons right">close</i></span>
-                    <p>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <span>Первый автор;</span>
-                        <span>Второй автор;</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span>Литрес</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span>4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span>1996</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span>1000</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span>Новое</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <span>12312312,</span>
-                        <span>53453245,</span>
-                        <span>65463464,</span>
-                        <span>53425235,</span>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span>Игра престолов — первая книга цикла «Песнь Льда и Пламени». Это же название носят созданные по
-                        мотивам книг игры (ролевые, настольные, колеционные, карточные[1]), адаптация книги в виде
-                        комикса и телесериал канала HBO, а также все посвященные ему проекты.</span></p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    <li th:unless="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
+        <a th:href="@{'/?page=' + ${books.number - 1}}"><i class="material-icons">chevron_left</i></a></li>
+    <li th:if="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
+        <a href="javascript:"><i class="material-icons">chevron_left</i></a></li>
+    <th:block th:each="i : ${#numbers.sequence(0,books.totalPages-1)}">
+        <li th:classappend="${i eq books.number} ? active : waves-effect"><a th:text="${i+1}" th:href="@{'/?page=' + ${i}}"></a></li>
+    </th:block>
+    <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a th:href="@{'/?page=' + ${books.number + 1}}"><i class="material-icons">chevron_right</i></a></li>
+    <li th:if="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a href="javascript:"><i class="material-icons">chevron_right</i></a></li>
 </ul>
 <footer th:replace="elements/footer :: footer"></footer>
 
