@@ -21,10 +21,7 @@ import java.util.List;
  * Created by dimon on 18.09.2016.
  */
 @Controller
-public class HelloController {
-    @Autowired
-    private UserService userService;
-
+public class ContentController {
     @Autowired
     private BookService bookService;
 
@@ -33,11 +30,6 @@ public class HelloController {
         Page<Book> page = this.bookService.getAllBooks(pageable);
         model.addAttribute("books", page);
         return "index";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
     }
 
 }

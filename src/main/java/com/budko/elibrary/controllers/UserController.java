@@ -24,6 +24,10 @@ public class UserController {
     private UserService userService;
     private Logger log = Logger.getLogger(getClass());
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
         model.addAttribute("user",new User());
