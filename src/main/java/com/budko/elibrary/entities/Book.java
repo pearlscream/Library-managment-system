@@ -17,6 +17,8 @@ public class Book {
     private String bookName;
     @Column(name = "Publisher")
     private String publisher;
+    @Column(name = "description")
+    private String description;
     @Column(name = "Publication")
     private String publication;
     @Column(name = "Publish_Year")
@@ -112,12 +114,21 @@ public class Book {
         this.bookCards = bookCards;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
                 ", bookName='" + bookName + '\'' +
                 ", publisher='" + publisher + '\'' +
+                ", description='" + description + '\'' +
                 ", publication='" + publication + '\'' +
                 ", publishYear=" + publishYear +
                 ", pagesCount=" + pagesCount +
