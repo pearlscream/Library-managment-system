@@ -1,7 +1,12 @@
 package com.budko.elibrary.controllers;
 
 import com.budko.elibrary.entities.Book;
+import com.budko.elibrary.entities.BookCard;
+import com.budko.elibrary.entities.User;
+import com.budko.elibrary.repositories.BidRepository;
 import com.budko.elibrary.repositories.BookRepository;
+import com.budko.elibrary.services.BidService;
+import com.budko.elibrary.services.BookCardService;
 import com.budko.elibrary.services.BookService;
 import com.budko.elibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,11 +31,26 @@ public class ContentController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private BidService bidService;
+
+    @Autowired
+    private BookCardService bookCardService;
+
     @RequestMapping("/")
     public String index(Model model, @PageableDefault(page = 1,value = 6)Pageable pageable) {
         Page<Book> page = this.bookService.getAllBooks(pageable);
         model.addAttribute("books", page);
         return "index";
+    }
+
+
+    @RequestMapping("/addBid")
+    public String addBid(Model model,@RequestParam(name = "bookId") int bookId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        BookCard bookCard = bookCardService.getBookCard(bookId);
+        bidService.addBid(user,bookCard);
+        return "redirect:/";
     }
 
 }

@@ -34,7 +34,12 @@
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
                     <p th:text="${book.description}"></p>
-                    <p><a href="#">Заказать книгу</a></p>
+                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
+                    <div class="row bidBooks">
+                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
+                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Игра престолов<i
@@ -91,7 +96,12 @@
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
                     <p th:text="${book.description}"></p>
-                    <p><a href="#">Заказать книгу</a></p>
+                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
+                    <div class="row bidBooks">
+                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
+                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Игра престолов<i
@@ -155,6 +165,7 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
