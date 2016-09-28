@@ -29,19 +29,16 @@
     <div class="row">
         <form class="col s12">
             <div class="row">
-                <div class="input-field col s6">
-                    <input placeholder="Логін" id="first_name" type="text" class="validate">
-                    <label for="first_name">Логін</label>
+                <div class="input-field col s12">
+                    <input placeholder="Назва книги" id="first_name" type="text" class="validate">
+                    <label for="first_name">Назва книги</label>
                 </div>
-                <div class="input-field col s6">
-                    <input id="last_name" type="password" class="validate">
-                    <label for="last_name">Пароль</label>
-                </div>
+
             </div>
             <div class="row">
                 <div class="input-field col s4">
                     <input placeholder="Ім'я" id="first_name" type="text" class="validate">
-                    <label for="first_name">Ім'я</label>
+                    <label for="first_name">Автор</label>
                 </div>
                 <div class="input-field col s4">
                     <input id="last_name" type="text" class="validate">
@@ -53,37 +50,44 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12 lighten-4">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
+                <div class="input-field col s6 lighten-4">
+                    <input id="email" type="text" class="validate">
+                    <label for="email">Видавник</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">textsms</i>
-                    <input type="text" id="autocomplete-input" class="autocomplete">
-                    <label for="autocomplete-input">Адреса</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">phone</i>
-                    <input id="icon_telephone" type="tel" class="validate">
-                    <label for="icon_telephone">Телефон</label>
+                <div class="input-field col s6 lighten-4">
+                    <input id="email1" type="text" class="validate">
+                    <label for="email1">Видавництво</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s2">
-                    <label for="birthdate" class="">Дата народження</label>
+                    <label for="birthdate" class="">Рік видання</label>
                 </div>
-                <div class="input-field col s10">
-                    <input type="date" class="datepicker">
+                <div class="input-field col s4">
+                    <input type="date" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input"></label>
                 </div>
-            </div>
+                <div class="input-field col s6">
+                    <input id="icon_telephone" type="number" class="validate">
+                    <label for="icon_telephone">Кількість сторінок</label>
+                </div>
+
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6 ">
+                    <select>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>УДК</label>
+                </div>
+                <div class="input-field col s6">
                     <input id="works" type="text" class="validate">
-                    <label for="work">Місце роботи</label>
+                    <label for="work">Опис книги</label>
                 </div>
             </div>
+
+
             <button class="btn waves-effect waves-light" type="submit" name="action" >Внести книгу до бібліотеки
                 <i class="material-icons right">send</i>
             </button>
@@ -100,17 +104,23 @@
 
 
 <!--  Scripts-->
-<script>
-  $(document).ready() {
-     $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-  });
-     }
-  </script>
+
+
+
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+<script>
 
+$(document).ready()
+{
+$('select').material_select();
+$('.datepicker').pickadate({
+selectMonths: true, // Creates a dropdown to control month
+selectYears: 15, // Creates a dropdown of 15 years to control year
+format: 'dd/mm/yyyy'
+});
+}
+</script>
 </body>
 </html>
