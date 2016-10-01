@@ -2,13 +2,11 @@ package com.budko.elibrary.controllers;
 
 import com.budko.elibrary.entities.Book;
 import com.budko.elibrary.entities.BookCard;
+import com.budko.elibrary.entities.Faculty;
 import com.budko.elibrary.entities.User;
 import com.budko.elibrary.repositories.BidRepository;
 import com.budko.elibrary.repositories.BookRepository;
-import com.budko.elibrary.services.BidService;
-import com.budko.elibrary.services.BookCardService;
-import com.budko.elibrary.services.BookService;
-import com.budko.elibrary.services.UserService;
+import com.budko.elibrary.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +34,8 @@ public class ContentController {
 
     @Autowired
     private BookCardService bookCardService;
+
+
 
     @RequestMapping("/")
     public String index(Model model, @PageableDefault(page = 1,value = 6)Pageable pageable) {

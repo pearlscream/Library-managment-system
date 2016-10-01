@@ -47,7 +47,7 @@ public class User implements UserDetails{
     @NotEmpty(message = "Введіть телефон")
     private String phoneNumber;
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Calendar birthday;
     @NotEmpty(message = "Введіть вашу посаду")
     private String position;
@@ -131,17 +131,8 @@ public class User implements UserDetails{
         return birthday;
     }
 
-    public void setBirhday(String birhday) {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        System.out.println(birhday);
-        try {
-            cal.setTime(sdf.parse(birhday));// all done
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(cal);
-        this.birthday = cal;
+    public void setBirhday(Calendar birhday) {
+        this.birthday = birhday;
     }
 
     public void setBirthday(Calendar birthday) {

@@ -92,6 +92,9 @@
                 </div>
             </div>
             <div class="row">
+
+            </div>
+            <div class="row">
                 <div class="input-field col s4">
                     <input th:field="*{position}" id="position" type="text" class="validate">
                     <label for="faculty">Посада</label>
@@ -100,12 +103,15 @@
                     </ul>
                 </div>
                 <div class="input-field col s4">
-                    <input th:field="*{faculty.name}" id="faculty" type="text" class="validate">
-                    <label for="faculty">Факультет</label>
-                    <ul>
-                        <li th:class="errorMessage" th:each="err : ${#fields.errors('faculty.name')}" th:text="${err}" />
-                    </ul>
+                    <select th:field="*{faculty.name}">
+                        <option value="" disabled selected>Виберіть факультет</option>
+                        <option th:each="faculty : ${faculties}"
+                                th:value="${faculty.id}"
+                                th:text="${faculty.name}"></option>
+                    </select>
+                    <label>Факультет</label>
                 </div>
+
                 <div class="input-field col s4">
                     <input th:field="*{department}" id="department" type="text" class="validate">
                     <label for="department">Підрозділ</label>
@@ -114,9 +120,7 @@
                     </ul>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Зареєструватися
-                <i class="material-icons right">send</i>
-            </button>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Зареєструватися<i class="material-icons right">send</i></button>
         </form>
     </div>
     <br><br>
@@ -129,20 +133,21 @@
 <footer th:replace="elements/footer :: footer"></footer>
 
 
-<!--  Scripts-->
-<script>
-    $(document).ready()
-    {
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-        });
-    }
-</script>
-
 <script th:inline="javascript" th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>
 <script type="text/javascript" th:inline="javascript" th:src="@{/js/materialize.js}"></script>
 <script type="text/javascript" th:inline="javascript" th:src="@{/js/init.js}"></script>
 
+<!--  Scripts-->
+<script>
+    $(document).ready()
+    {
+        $('select').material_select();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            format: 'dd-mm-yyyy'
+        });
+    }
+</script>
 </body>
 </html>
