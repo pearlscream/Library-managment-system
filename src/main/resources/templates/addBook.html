@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Реєстрація нової книги</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<nav th:replace="elements/header :: header"></nav>
+<br>
+<div class="container">
+    <div class="row">
+        <form action="#" th:action="@{/admin/saveBook}" th:object="${book}" method="post" class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input th:field="*{bookName}" placeholder="Назва книги" id="first_name" type="text"
+                           class="validate">
+                    <label for="first_name">Назва книги</label>
+                </div>
+            </div>
+            <div th:each="author,authorStatus : ${book.authors}">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input th:value="${author.name}" th:name="'authors[' + ${authorStatus.index} + '].name'" placeholder="Ім'я" id="first_name" type="text"
+                               class="validate">
+                        <label for="first_name">Автор</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input th:value="${author.lastName}" th:name="'authors[' + ${authorStatus.index} + '].lastName'" id="last_name" type="text" class="validate">
+                        <label for="last_name">Прізвище</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input th:value="${author.middleName}" th:name="'authors[' + ${authorStatus.index} + '].middleName'" id="last_name" type="text" class="validate">
+                        <label for="last_name">По-батькові</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 lighten-4">
+                    <input th:field="*{publisher}" id="email" type="text" class="validate">
+                    <label for="email">Видавник</label>
+                </div>
+                <div class="input-field col s6 lighten-4">
+                    <input th:field="*{publication}" id="email1" type="text" class="validate">
+                    <label for="email1">Видавництво</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 lighten-4">
+                    <input th:field="*{publishYear}" id="email1" type="number" class="validate">
+                    <label for="email1">Рік видання</label>
+                </div>
+                <div class="input-field col s3">
+                    <input th:field="*{pagesCount}" id="icon_telephone" type="number" class="validate">
+                    <label for="icon_telephone">Кількість сторінок</label>
+                </div>
+                <div class="input-field col s3">
+                    <select th:field="*{udkCategory.id}">
+                        <option value="" disabled selected>Виберіть факультет</option>
+                        <option th:each="udkElement : ${udk}"
+                                th:value="${udkElement.id}"
+                                th:text="${udkElement.categoryName}"></option>
+                    </select>
+                    <label>УДК</label>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="input-field col s12">
+                    <textarea th:field="*{description}" id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Опис книги</label>
+                </div>
+            </div>
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Додати фото книги</span>
+                    <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            <br><br>
+            <br>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Внести книгу до бібліотеки
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+    <br><br>
+
+    <div class="section">
+
+    </div>
+</div>
+
+
+<!--  Scripts-->
+
+
+<script th:inline="javascript" th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:inline="javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript" th:inline="javascript" th:src="@{/js/init.js}"></script>
+<script>
+
+    $(document).ready()
+    {
+        $('select').material_select();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            format: 'dd/mm/yyyy'
+        });
+    }
+</script>
+</body>
+</html>

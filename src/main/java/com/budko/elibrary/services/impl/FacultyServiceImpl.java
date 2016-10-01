@@ -21,4 +21,9 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Faculty> getAllFaculties() {
         return facultyRepository.findAll();
     }
+
+    @Override
+    public Faculty getFacultyById(Integer id) {
+        return facultyRepository.findOne(id);
+    }
 }

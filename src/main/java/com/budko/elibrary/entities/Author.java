@@ -19,6 +19,15 @@ public class Author {
     @Column(name = "author_middle_name")
     private String middleName;
 
+    public Author() {
+    }
+
+    public Author(String name, String lastName, String middleName) {
+        this.name = name;
+        this.lastName = lastName;
+        this.middleName = middleName;
+    }
+
     public Integer getId() {
         return id;
     }

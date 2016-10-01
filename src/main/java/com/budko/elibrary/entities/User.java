@@ -59,7 +59,7 @@ public class User implements UserDetails{
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "roleid")
     private UserRoles role;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 

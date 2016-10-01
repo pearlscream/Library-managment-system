@@ -12,4 +12,5 @@ import java.util.Set;
 @Service
 public interface FacultyService {
     public List<Faculty> getAllFaculties();
+    public Faculty getFacultyById(Integer id);
 }

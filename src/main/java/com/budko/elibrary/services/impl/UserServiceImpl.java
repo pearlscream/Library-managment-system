@@ -34,11 +34,16 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserExistException();
         }
-        Faculty faculty = facultyRepository.findOne(1);
+        Faculty faculty = facultyRepository.findOne(user.getFaculty().getId());
         user.setFaculty(faculty);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(UserRoles.USER);
         user.setEnabled(true);
         return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public User getUserById(Integer id) {
+        return userRepository.findOne(id);
     }
 }

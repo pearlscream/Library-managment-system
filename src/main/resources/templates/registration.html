@@ -97,13 +97,13 @@
             <div class="row">
                 <div class="input-field col s4">
                     <input th:field="*{position}" id="position" type="text" class="validate">
-                    <label for="faculty">Посада</label>
+                    <label for="position">Посада</label>
                     <ul>
                         <li th:class="errorMessage" th:each="err : ${#fields.errors('position')}" th:text="${err}" />
                     </ul>
                 </div>
                 <div class="input-field col s4">
-                    <select th:field="*{faculty.name}">
+                    <select th:field="*{faculty.id}">
                         <option value="" disabled selected>Виберіть факультет</option>
                         <option th:each="faculty : ${faculties}"
                                 th:value="${faculty.id}"

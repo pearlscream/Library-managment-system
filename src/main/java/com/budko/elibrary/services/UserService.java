@@ -11,4 +11,5 @@ import org.springframework.stereotype.Service;
 public interface UserService {
     User getUserByUsername(String username);
     User saveUser(User user) throws UserExistException;
+    User getUserById(Integer id);
 }

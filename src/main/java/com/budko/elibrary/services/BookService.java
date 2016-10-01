@@ -14,4 +14,5 @@ import java.util.List;
 public interface BookService {
     public List<Book> getAllBooks();
     public Page<Book> getAllBooks(Pageable pageable);
+    public void addBook(Book book);
 }

@@ -1,6 +1,7 @@
 package com.budko.elibrary.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,7 +32,7 @@ public class Book {
     @JoinTable(name = "authors_book",
             joinColumns = @JoinColumn(name = "id_Book",referencedColumnName = "Book_Id"),
             inverseJoinColumns = @JoinColumn(name = "id_Author",referencedColumnName = "id_Authors"))
-    private Set<Author> authors;
+    private List<Author> authors;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UDK_Number")
     private UDKCategory udkCategory;
@@ -90,11 +91,11 @@ public class Book {
         this.imageLink = imageLink;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

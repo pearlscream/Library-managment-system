@@ -6,8 +6,10 @@ import com.budko.elibrary.exceptions.UserExistException;
 import com.budko.elibrary.services.FacultyService;
 import com.budko.elibrary.services.UserService;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,19 +43,19 @@ public class UserController {
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
         model.addAttribute("user",new User());
-        List<Faculty> faculties = facultyService.getAllFaculties();
-        System.out.println(faculties);
-        model.addAttribute("faculties",faculties);
+        model.addAttribute("faculties",facultyService.getAllFaculties());
         return "registration";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
+    @Transactional
     public String addUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult, Model model) throws UserExistException {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("faculties",facultyService.getAllFaculties());
             return "registration";
         }
         System.out.println(user);
+
         userService.saveUser(user);
-//        user.setBirthday("20-12.2015");
         return "redirect:/login";
     }
 }
