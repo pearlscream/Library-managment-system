@@ -12,8 +12,11 @@
 </head>
 <body>
 <nav class="#303f9f indigo darken-2" role="navigation">
-    <img style="position:absolute; left:130px; bottom:600px" width="65px" height="65px" class="brand-logo" src="images/logo.png">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><div>Електронна бібліотека</div></a>
+    <img style="position:absolute; left:130px; bottom:600px" width="65px" height="65px" class="brand-logo"
+         src="images/logo.png">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">
+        <div>Електронна бібліотека</div>
+    </a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Реєстрація нової книги</a></li>
         </ul>
@@ -61,19 +64,17 @@
             </div>
             <div class="row">
                 <div class="input-field col s2">
-                    <label for="birthdate" class="">Рік видання</label>
+                    <label for="autocomplete-input" class="">Рік видання</label>
                 </div>
                 <div class="input-field col s4">
-                    <input type="date" id="autocomplete-input" class="autocomplete">
+                    <input type="date" id="autocomplete-input" class="autocomplete datepicker">
                     <label for="autocomplete-input"></label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s3">
                     <input id="icon_telephone" type="number" class="validate">
                     <label for="icon_telephone">Кількість сторінок</label>
                 </div>
-
-            <div class="row">
-                <div class="input-field col s6 ">
+                <div class="input-field col s3">
                     <select>
                         <option value="1">Option 1</option>
                         <option value="2">Option 2</option>
@@ -81,26 +82,29 @@
                     </select>
                     <label>УДК</label>
                 </div>
-                <div class="input-field col s6">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+            </div>
+            <div class="row">
 
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"></textarea>
                     <label for="textarea1">Опис книги</label>
                 </div>
             </div>
-
-                <form action="#">
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Додати фото книги</span>
-                            <input type="file">
-                        </div>
-
+            <form action="#">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Додати фото книги</span>
+                        <input type="file">
                     </div>
-                </form>
-                <br><br>
-                <br>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </form>
+            <br><br>
+            <br>
 
-            <button class="btn waves-effect waves-light" type="submit" name="action" >Внести книгу до бібліотеки
+            <button class="btn waves-effect waves-light" type="submit" name="action">Внести книгу до бібліотеки
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -113,10 +117,7 @@
 </div>
 
 
-
-
 <!--  Scripts-->
-
 
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -124,15 +125,15 @@
 <script src="js/init.js"></script>
 <script>
 
-$(document).ready()
-{
-$('select').material_select();
-$('.datepicker').pickadate({
-selectMonths: true, // Creates a dropdown to control month
-selectYears: 15, // Creates a dropdown of 15 years to control year
-format: 'dd/mm/yyyy'
-});
-}
+    $(document).ready()
+    {
+        $('select').material_select();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            format: 'dd/mm/yyyy'
+        });
+    }
 </script>
 </body>
 </html>
