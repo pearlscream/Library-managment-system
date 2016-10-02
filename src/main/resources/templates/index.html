@@ -28,7 +28,7 @@
         <div th:each="book,bookStat : ${books}" th:if="${bookStat.index lt 3}" class="col s4">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" th:src="@{'images/' + ${book.imageLink}}">
+                    <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
                 </div>
                 <div class="card-content">
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Игра престолов<i
+                <span th:text="${book.bookName}" class="card-title grey-text text-darken-4"><i
                         class="material-icons right">close</i></span>
                     <div>
                         <span class="materialize-red-text">Авторы:</span>
@@ -90,7 +90,7 @@
         <div th:each="book,bookStat : ${books}" th:if="${bookStat.index gt 2}" class="col s4">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" th:src="@{'images/' + ${book.imageLink}}">
+                    <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
                 </div>
                 <div class="card-content">
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i

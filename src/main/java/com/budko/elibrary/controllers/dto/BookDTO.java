@@ -1,60 +1,30 @@
-package com.budko.elibrary.entities;
+package com.budko.elibrary.controllers.dto;
 
-import com.budko.elibrary.controllers.dto.BookDTO;
+import com.budko.elibrary.entities.Author;
+import com.budko.elibrary.entities.BookCard;
+import com.budko.elibrary.entities.UDKCategory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 /**
  * @author DBudko.
  */
-@Entity
-@Table(name = "book")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Book_id")
+@Component
+public class BookDTO {
     private Integer bookId;
-    @Column(name = "Book_Name")
     private String bookName;
-    @Column(name = "Publisher")
     private String publisher;
-    @Column(name = "description")
     private String description;
-    @Column(name = "Publication")
     private String publication;
-    @Column(name = "Publish_Year")
     private Integer publishYear;
-    @Column(name = "Pages_count")
     private Integer pagesCount;
-    @Column(name = "image_link")
-    private String imageName;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "authors_book",
-            joinColumns = @JoinColumn(name = "id_Book",referencedColumnName = "Book_Id"),
-            inverseJoinColumns = @JoinColumn(name = "id_Author",referencedColumnName = "id_Authors"))
+    private MultipartFile imageLink;
     private List<Author> authors;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UDK_Number")
     private UDKCategory udkCategory;
-    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
     private Set<BookCard> bookCards;
-
-    public Book() {}
-    public Book(BookDTO bookDTO,String imageName) {
-        this.setBookName(bookDTO.getBookName());
-        this.setPublisher(bookDTO.getPublisher());
-        this.setDescription(bookDTO.getDescription());
-        this.setPublisher(bookDTO.getPublisher());
-        this.setPublication(bookDTO.getPublication());
-        this.setPublishYear(bookDTO.getPublishYear());
-        this.setPagesCount(bookDTO.getPagesCount());
-        this.setAuthors(bookDTO.getAuthors());
-        this.setUdkCategory(bookDTO.getUdkCategory());
-        this.setBookCards(bookDTO.getBookCards());
-        this.setImageName(imageName);
-    }
 
     public Integer getBookId() {
         return bookId;
@@ -100,12 +70,12 @@ public class Book {
         this.pagesCount = pagesCount;
     }
 
-    public String getImageName() {
-        return imageName;
+    public MultipartFile getImageLink() {
+        return imageLink;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImageLink(MultipartFile imageLink) {
+        this.imageLink = imageLink;
     }
 
     public List<Author> getAuthors() {
@@ -150,7 +120,7 @@ public class Book {
                 ", publication='" + publication + '\'' +
                 ", publishYear=" + publishYear +
                 ", pagesCount=" + pagesCount +
-                ", imageName='" + imageName + '\'' +
+                ", imageLink='" + imageLink + '\'' +
                 ", authors=" + authors +
                 ", udkCategory=" + udkCategory +
                 ", bookCards=" + bookCards +
