@@ -7,7 +7,6 @@ import com.budko.elibrary.repositories.AuthorRepository;
 import com.budko.elibrary.repositories.BookRepository;
 import com.budko.elibrary.repositories.UDKRepository;
 import com.budko.elibrary.services.BookService;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -49,8 +48,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void addBook(BookDTO bookDTO) throws IOException, FileExistException {
-        String fileName = getRandomFileNameWithExtension(bookDTO.getImageLink());
-        fileUpload(bookDTO.getImageLink(),fileName);
+        String fileName = getRandomFileNameWithExtension(bookDTO.getImage());
+        fileUpload(bookDTO.getImage(),fileName);
         Book book = new Book(bookDTO,fileName);
         authorRepository.save(book.getAuthors());
         book.setUdkCategory(udkRepository.findOne(book.getUdkCategory().getId()));

@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 public interface BookService {
-    public List<Book> getAllBooks();
-    public Page<Book> getAllBooks(Pageable pageable);
-    public void addBook(BookDTO book) throws IOException, FileExistException;
+    List<Book> getAllBooks();
+    Page<Book> getAllBooks(Pageable pageable);
+    void addBook(BookDTO book) throws IOException, FileExistException;
 }

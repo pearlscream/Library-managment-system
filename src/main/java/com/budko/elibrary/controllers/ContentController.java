@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,8 +39,8 @@ public class ContentController {
 
 
     @RequestMapping("/")
-    public String index(Model model, @PageableDefault(page = 1,value = 6)Pageable pageable) {
-        Page<Book> page = this.bookService.getAllBooks(pageable);
+    public String index(Model model, @PageableDefault(page = 1,value = 50,direction = Sort.Direction.ASC)Pageable pageable) {
+        Page<Book> page = bookService.getAllBooks(pageable);
         model.addAttribute("books", page);
         return "index";
     }

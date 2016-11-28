@@ -6,7 +6,7 @@
     <title>Електронна бібліотека</title>
 
     <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/material_icons.css" rel="stylesheet">
     <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
@@ -27,75 +27,10 @@
     <div class="row">
         <div th:each="book,bookStat : ${books}" th:if="${bookStat.index lt 3}" class="col s4">
             <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
-                </div>
                 <div class="card-content">
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
-                    <p th:text="${book.description}"></p>
-                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
-                    <div class="row bidBooks">
-                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
-                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-reveal">
-                <span th:text="${book.bookName}" class="card-title grey-text text-darken-4"><i
-                        class="material-icons right">close</i></span>
-                    <div>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <th:block th:each="author,authorStat : ${book.authors}">
-                            <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
-                        </th:block>
-                    </div>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span th:text="${book.publisher}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span th:text="${book.udkCategory.id} + ' ' + ${book.udkCategory.categoryName}">4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span th:text="${book.publishYear}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span th:text="${book.pagesCount}"></span>
-                    </p>
-
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span th:text="${book.publication}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <th:block th:each="bookCard,bookCardStat : ${book.bookCards}">
-                            <span th:text="${bookCard.id} + ', '"></span>
-                        </th:block>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span th:text="${book.description}"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index gt 2}" class="col s4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
-                </div>
-                <div class="card-content">
-                    <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
-                            class="material-icons right">more_vert</i></span>
-                    <p th:text="${book.description}"></p>
+                    <!--<p th:text="${book.description}"></p>-->
                     <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
                     <div class="row bidBooks">
                         <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
@@ -107,6 +42,9 @@
                 <span class="card-title grey-text text-darken-4">Игра престолов<i
                         class="material-icons right">close</i></span>
                     <div>
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
+                        </div>
                         <span class="materialize-red-text">Авторы:</span>
                         <th:block th:each="author,authorStat : ${book.authors}">
                             <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
@@ -140,7 +78,68 @@
                     </p>
 
                     <p><span class="materialize-red-text">Описание:</span>
-                        <span th:text="${book.description}"></span></p>
+                        <!--<span th:text="${book.description}"></span></p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index gt 2}" class="col s4">
+            <div class="card">
+                <div class="card-content">
+                    <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
+                            class="material-icons right">more_vert</i></span>
+                    <!--<p th:text="${book.description}"></p>-->
+                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
+                    <div class="row bidBooks">
+                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
+                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Игра престолов<i
+                        class="material-icons right">close</i></span>
+                    <div>
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
+                        </div>
+                        <span class="materialize-red-text">Авторы:</span>
+                        <th:block th:each="author,authorStat : ${book.authors}">
+                            <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
+                        </th:block>
+                    </div>
+                    <p>
+                        <span class="materialize-red-text">Издатель:</span>
+                        <span th:text="${book.publisher}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">УДК:</span>
+                        <span th:text="${book.udkCategory.id} + ' ' + ${book.udkCategory.categoryName}">4: Прочее</span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">Год издательства:</span>
+                        <span th:text="${book.publishYear}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">Количество страниц:</span>
+                        <span th:text="${book.pagesCount}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">Издание:</span>
+                        <span th:text="${book.publication}"></span>
+                    </p>
+                    <p>
+                        <span class="materialize-red-text">В наличии:</span>
+                        <th:block th:each="bookCard,bookCardStat : ${book.bookCards}">
+                            <span th:text="${bookCard.id} + ', '"></span>
+                        </th:block>
+                    </p>
+
+                    <p><span class="materialize-red-text">Описание:</span>
+                        <!--<span th:text="${book.description}"></span></p>-->
                 </div>
             </div>
         </div>
@@ -162,7 +161,7 @@
 
 
 <!--  Scripts-->
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/jquery-2.1.1.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
 <script src="js/main.js"></script>

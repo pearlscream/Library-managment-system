@@ -21,7 +21,7 @@ public class BookDTO {
     private String publication;
     private Integer publishYear;
     private Integer pagesCount;
-    private MultipartFile imageLink;
+    private MultipartFile image;
     private List<Author> authors;
     private UDKCategory udkCategory;
     private Set<BookCard> bookCards;
@@ -70,12 +70,12 @@ public class BookDTO {
         this.pagesCount = pagesCount;
     }
 
-    public MultipartFile getImageLink() {
-        return imageLink;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setImageLink(MultipartFile imageLink) {
-        this.imageLink = imageLink;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public List<Author> getAuthors() {
@@ -120,7 +120,7 @@ public class BookDTO {
                 ", publication='" + publication + '\'' +
                 ", publishYear=" + publishYear +
                 ", pagesCount=" + pagesCount +
-                ", imageLink='" + imageLink + '\'' +
+                ", image='" + image + '\'' +
                 ", authors=" + authors +
                 ", udkCategory=" + udkCategory +
                 ", bookCards=" + bookCards +
