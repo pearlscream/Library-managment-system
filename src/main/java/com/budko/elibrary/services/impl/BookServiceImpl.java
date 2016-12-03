@@ -46,6 +46,15 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll(request);
     }
 
+    public Page<Book> getBooksByBookName(Pageable pageable,String bookName) {
+        Pageable request = new PageRequest(pageable.getPageNumber()-1,pageable.getPageSize(),pageable.getSort());
+        return bookRepository.findByBookNameContaining(bookName,request);
+    }
+    public Page<Book> getBooksByAuthorName(Pageable pageable,String authorName) {
+        Pageable request = new PageRequest(pageable.getPageNumber()-1,pageable.getPageSize(),pageable.getSort());
+        return bookRepository.findByAuthorsNameContaining(authorName,request);
+    }
+
     @Override
     public void addBook(BookDTO bookDTO) throws IOException, FileExistException {
         String fileName = getRandomFileNameWithExtension(bookDTO.getImage());

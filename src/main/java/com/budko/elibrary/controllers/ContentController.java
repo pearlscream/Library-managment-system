@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by dimon on 18.09.2016.
@@ -39,8 +40,15 @@ public class ContentController {
 
 
     @RequestMapping("/")
-    public String index(Model model, @PageableDefault(page = 1,value = 50,direction = Sort.Direction.ASC)Pageable pageable) {
-        Page<Book> page = bookService.getAllBooks(pageable);
+    public String index(Model model, @PageableDefault(page = 1,value = 50,sort = {"bookName"})Pageable pageable,@RequestParam(value = "search",required = false)String search,@RequestParam(value = "authorSearch",required = false)String authorSearch) {
+        Page<Book> page;
+        if (search != null) {
+            page = bookService.getBooksByBookName(pageable, search);
+        } else if (authorSearch != null) {
+            page = bookService.getBooksByAuthorName(pageable,authorSearch);
+        } else {
+            page = bookService.getAllBooks(pageable);
+        }
         model.addAttribute("books", page);
         return "index";
     }
