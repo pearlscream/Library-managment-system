@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -13,9 +15,50 @@
 <body class="#ede7f6 deep-purple lighten-5">
 <nav th:replace="elements/header :: header"></nav>
 <div class="section no-pad-bot" id="index-banner">
+    <div class="row">
+        <form action="/" method="get" class="col s6">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input name="search" placeholder="Placeholder" type="text" class="validate">
+                </div>
+                <div class="input-field col s3">
+                    <input placeholder="Placeholder" type="submit">
+                </div>
+            </div>
+        </form>
+        <form action="/" method="get" class="col s6">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input name="authorSearch" placeholder="Placeholder" type="text" class="validate">
+                </div>
+                <div class="input-field col s3">
+                    <input placeholder="Placeholder" type="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ul id="slide-out" class="side-nav">
+        <li><div class="userView">
+            <div class="background">
+                <img src="images/office.jpg">
+            </div>
+            <a href=":javascript"><img class="circle" src="images/logo.png"></a>
+            <a href=":javascript"><span class="white-text name" th:text="${username}"></span></a>
+            <a href=":javascript"><span class="white-text email" th:text="${email}"></span></a>
+        </div></li>
+        <li><a href="/?name=K&sort=bookName,asc" class="waves-effect">Сортувати за назвою за зростанням</a></li>
+        <li><a href="/?name=K&sort=bookName,desc" class="waves-effect">Сортувати за назвою за спаданням</a></li>
+        <li><a href="/?name=K&sort=authors,asc" class="waves-effect">Сортувати за авторами за зростанням</a></li>
+        <li><a href="/?name=K&sort=authors,desc" class="waves-effect">Сортувати за авторами за спаданням</a></li>
+        <li><a href="/?name=K&sort=udkCategory,asc" class="waves-effect">Сортувати за УДК за зростанням</a></li>
+        <li><a href="/?name=K&sort=udkCategory,desc" class="waves-effect">Сортувати за УДК за спаданням</a></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
     <div class="container">
         <br><br>
-        <h1 class="header center">Вітаємо у бібліотеці</h1>
+        <h1 class="header center" th:text="${'Вітаємо у бібліотеці, ' + username}">Вітаємо у бібліотеці</h1>
         <div class="row center">
             <h5 class="header col s12 light">Наша система допоможе вам вибрати для себе гарну книгу!</h5>
         </div>
@@ -25,14 +68,14 @@
 </div>
 <div class="container">
     <div class="row">
-        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index lt 3}" class="col s4">
+        <div th:each="book,bookStat : ${books}" class="col s4">
             <div class="card">
-                <a th:href="${'/admin/editBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
-                    <i class="tiny material-icons">mode_edit</i>
-                </a>
                 <div class="card-content">
                     <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
+                    </div>
                     <!--<p th:text="${book.description}"></p>-->
                     <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
                     <div class="row bidBooks">
@@ -40,14 +83,17 @@
                             <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
                         </div>
                     </div>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/editBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
+                        <i class="tiny material-icons">mode_edit</i>
+                    </a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/removeBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
+                        <i class="tiny material-icons">delete</i>
+                    </a>
                 </div>
                 <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4" th:text="${book.bookName}"><i
                         class="material-icons right">close</i></span>
                     <div>
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
-                        </div>
                         <span class="materialize-red-text">Авторы:</span>
                         <th:block th:each="author,authorStat : ${book.authors}">
                             <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
@@ -88,68 +134,6 @@
     </div>
 
 
-    <div class="row">
-        <div th:each="book,bookStat : ${books}" th:if="${bookStat.index gt 2}" class="col s4">
-            <div class="card">
-                <a th:href="${'/admin/editBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
-                    <i class="tiny material-icons">mode_edit</i>
-                </a>
-                <div class="card-content">
-                    <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
-                            class="material-icons right">more_vert</i></span>
-                    <!--<p th:text="${book.description}"></p>-->
-                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
-                    <div class="row bidBooks">
-                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
-                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4" th:text="${book.bookName}"><i
-                        class="material-icons right">close</i></span>
-                    <div>
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
-                        </div>
-                        <span class="materialize-red-text">Авторы:</span>
-                        <th:block th:each="author,authorStat : ${book.authors}">
-                            <p th:text="${author.name} + ' ' + ${author.lastName} + ' ' + ${author.middleName}"></p>
-                        </th:block>
-                    </div>
-                    <p>
-                        <span class="materialize-red-text">Издатель:</span>
-                        <span th:text="${book.publisher}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">УДК:</span>
-                        <span th:text="${book.udkCategory.id} + ' ' + ${book.udkCategory.categoryName}">4: Прочее</span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Год издательства:</span>
-                        <span th:text="${book.publishYear}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Количество страниц:</span>
-                        <span th:text="${book.pagesCount}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">Издание:</span>
-                        <span th:text="${book.publication}"></span>
-                    </p>
-                    <p>
-                        <span class="materialize-red-text">В наличии:</span>
-                        <th:block th:each="bookCard,bookCardStat : ${book.bookCards}">
-                            <span th:text="${bookCard.id} + ', '"></span>
-                        </th:block>
-                    </p>
-
-                    <p><span class="materialize-red-text">Описание:</span>
-                        <span th:text="${book.description}"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <ul th:if="${books.totalPages>0}" class="center pagination">
@@ -158,10 +142,13 @@
     <li th:if="${books.first}" th:classappend="${books.first} ? disabled : waves-effect">
         <a href="javascript:"><i class="material-icons">chevron_left</i></a></li>
     <th:block th:each="i : ${#numbers.sequence(0,books.totalPages-1)}">
-        <li th:classappend="${i eq books.number} ? active : waves-effect"><a th:text="${i+1}" th:href="@{'/?page=' + ${i+1}}"></a></li>
+        <li th:classappend="${i eq books.number} ? active : waves-effect"><a th:text="${i+1}"
+                                                                             th:href="@{'/?page=' + ${i+1}}"></a></li>
     </th:block>
-    <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a th:href="@{'/?page=' + ${books.number + 2}}"><i class="material-icons">chevron_right</i></a></li>
-    <li th:if="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a href="javascript:"><i class="material-icons">chevron_right</i></a></li>
+    <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a
+            th:href="@{'/?page=' + ${books.number + 2}}"><i class="material-icons">chevron_right</i></a></li>
+    <li th:if="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a href="javascript:"><i
+            class="material-icons">chevron_right</i></a></li>
 </ul>
 
 
@@ -171,6 +158,10 @@
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+    $(".button-collapse").sideNav();
+</script>
 
 </body>
 </html>

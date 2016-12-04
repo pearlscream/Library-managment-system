@@ -85,5 +85,10 @@ public class BookServiceImpl implements BookService {
         return fileName;
     }
 
+    public void removeBookById(Integer id) {
+        bookRepository.delete(id);
+    }
+
+
 
 }

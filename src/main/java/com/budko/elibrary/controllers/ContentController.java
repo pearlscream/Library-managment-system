@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,15 +36,22 @@ public class ContentController {
     private BookService bookService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private BidService bidService;
 
     @Autowired
     private BookCardService bookCardService;
 
 
-
     @RequestMapping("/")
-    public String index(Model model, @PageableDefault(page = 1,value = 50,sort = {"bookName"})Pageable pageable,@RequestParam(value = "search",required = false)String search,@RequestParam(value = "authorSearch",required = false)String authorSearch) {
+    public String index(Model model, @PageableDefault(page = 1,value = 50,sort = {"bookName"})Pageable pageable,@RequestParam(value = "search",required = false)String search,@RequestParam(value = "authorSearch",required = false)String authorSearch,HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        User user = userService.getUserByUsername(email);
+        model.addAttribute("username",user.getFirstName());
+        model.addAttribute("email",user.getUsername());
         Page<Book> page;
         if (search != null) {
             page = bookService.getBooksByBookName(pageable, search);

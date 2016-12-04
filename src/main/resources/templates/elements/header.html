@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -19,11 +19,10 @@
         <div>Електронна бібліотека</div>
     </a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-            <li><a href="#">Увійти</a></li>
+            <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
+            <li><a sec:authorize="isAuthenticated()" href="/logout">Вийти</a></li>
             <i class="material-icons">input</i>
         </ul>
-
         <ul id="nav-mobile" class="side-nav">
             <li><a href="#">Navbar Link</a></li>
         </ul>

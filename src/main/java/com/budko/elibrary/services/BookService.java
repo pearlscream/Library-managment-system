@@ -21,4 +21,5 @@ public interface BookService {
     Page<Book> getBooksByAuthorName(Pageable pageable,String authorName);
     Book getBookById(Integer bookId);
     void addBook(BookDTO book) throws IOException, FileExistException;
+    void removeBookById(Integer id);
 }

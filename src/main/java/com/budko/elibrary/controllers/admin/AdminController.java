@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,12 @@ public class AdminController {
         model.addAttribute("book",bookDTO);
         model.addAttribute("edit",true);
         return "addBook";
+    }
+
+    @RequestMapping("/removeBook/{id}")
+    public String removeBook(Model model,@PathVariable(value = "id") Integer id) {
+        bookService.removeBookById(id);
+        return "redirect:/";
     }
 
     @RequestMapping("/addBook")

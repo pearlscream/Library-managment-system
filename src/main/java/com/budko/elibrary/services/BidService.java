@@ -11,4 +11,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface BidService {
     public void addBid(User user,BookCard bookCard);
+
 }
