@@ -1,6 +1,7 @@
 package com.budko.elibrary.controllers.dto;
 
 import com.budko.elibrary.entities.Author;
+import com.budko.elibrary.entities.Book;
 import com.budko.elibrary.entities.BookCard;
 import com.budko.elibrary.entities.UDKCategory;
 import org.springframework.stereotype.Component;
@@ -26,8 +27,29 @@ public class BookDTO {
     private UDKCategory udkCategory;
     private Set<BookCard> bookCards;
 
+    public BookDTO() {
+
+    }
+
+    public BookDTO(Book book) {
+        bookId = book.getBookId();
+        bookName = book.getBookName();
+        publisher = book.getPublisher();
+        description = book.getDescription();
+        publication = book.getPublication();
+        publishYear = book.getPublishYear();
+        pagesCount = book.getPagesCount();
+        authors = book.getAuthors();
+        udkCategory = book.getUdkCategory();
+        bookCards = book.getBookCards();
+    }
+
     public Integer getBookId() {
         return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public String getBookName() {

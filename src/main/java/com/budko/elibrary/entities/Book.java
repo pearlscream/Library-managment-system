@@ -43,6 +43,7 @@ public class Book {
 
     public Book() {}
     public Book(BookDTO bookDTO,String imageName) {
+        this.bookId = bookDTO.getBookId();
         this.setBookName(bookDTO.getBookName());
         this.setPublisher(bookDTO.getPublisher());
         this.setDescription(bookDTO.getDescription());

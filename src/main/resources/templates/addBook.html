@@ -16,6 +16,8 @@
 <div class="container">
     <div class="row">
         <form enctype="multipart/form-data" action="#" th:action="@{/admin/saveBook}" th:object="${book}" method="post" class="col s12">
+            <input name="edit" th:value="${edit}" type="hidden">
+            <input th:field="*{bookId}" type="hidden">
             <div class="row">
                 <div class="input-field col s12">
                     <input th:field="*{bookName}" placeholder="Назва книги" id="first_name" type="text"
@@ -23,8 +25,8 @@
                     <label for="first_name">Назва книги</label>
                 </div>
             </div>
-            <div th:each="author,authorStatus : ${book.authors}">
-                <div class="row">
+            <div id="authors_block">
+                <div class=" author row" th:id="'author' + ${authorStatus.index}" th:each="author,authorStatus : ${book.authors}">
                     <div class="input-field col s4">
                         <input th:value="${author.name}" th:name="'authors[' + ${authorStatus.index} + '].name'" placeholder="Ім'я" id="first_name" type="text"
                                class="validate">
@@ -40,6 +42,8 @@
                     </div>
                 </div>
             </div>
+            <a id="addAuthor" class="btn-floating waves-effect waves-light indigo darken-2"><i class="material-icons">add</i></a>
+            <a id="deleteAuthor" class="btn-floating waves-effect waves-light indigo darken-2"><i class="tiny material-icons">delete</i></a>
             <div class="row">
                 <div class="input-field col s6 lighten-4">
                     <input th:field="*{publisher}" id="email" type="text" class="validate">
@@ -61,7 +65,7 @@
                 </div>
                 <div class="input-field col s3">
                     <select th:field="*{udkCategory.id}">
-                        <option value="" disabled selected>Виберіть факультет</option>
+                        <option value="" disabled selected>Виберіть УДК</option>
                         <option th:each="udkElement : ${udk}"
                                 th:value="${udkElement.id}"
                                 th:text="${udkElement.categoryName}"></option>
@@ -106,6 +110,7 @@
 <script th:inline="javascript" th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>
 <script type="text/javascript" th:inline="javascript" th:src="@{/js/materialize.js}"></script>
 <script type="text/javascript" th:inline="javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:inline="javascript" th:src="@{/js/main.js}"></script>
 <script>
 
     $(document).ready()

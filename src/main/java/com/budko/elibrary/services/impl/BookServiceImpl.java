@@ -50,6 +50,10 @@ public class BookServiceImpl implements BookService {
         Pageable request = new PageRequest(pageable.getPageNumber()-1,pageable.getPageSize(),pageable.getSort());
         return bookRepository.findByBookNameContaining(bookName,request);
     }
+
+    public Book getBookById(Integer bookId) {
+        return bookRepository.findOne(bookId);
+    }
     public Page<Book> getBooksByAuthorName(Pageable pageable,String authorName) {
         Pageable request = new PageRequest(pageable.getPageNumber()-1,pageable.getPageSize(),pageable.getSort());
         return bookRepository.findByAuthorsNameContaining(authorName,request);
