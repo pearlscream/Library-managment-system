@@ -163,7 +163,7 @@
     <li th:unless="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a th:href="@{'/?page=' + ${books.number + 2}}"><i class="material-icons">chevron_right</i></a></li>
     <li th:if="${books.last}" th:classappend="${books.last} ? disabled : waves-effect"><a href="javascript:"><i class="material-icons">chevron_right</i></a></li>
 </ul>
-<footer th:replace="elements/footer :: footer"></footer>
+
 
 
 <!--  Scripts-->
