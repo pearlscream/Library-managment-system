@@ -13,12 +13,13 @@
 </head>
 <body>
 <nav th:fragment="header" class="#303f9f indigo darken-2" role="navigation">
-    <img style="position:absolute; left:130px; bottom:590px" width="65px" height="65px" class="brand-logo"
+    <img style="position:relative; left:130px;" width="65px" height="65px" class="brand-logo"
          src="/images/logo.png">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">
+    <div style="position:relative; bottom: 90px" class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">
         <div>Електронна бібліотека</div>
     </a>
         <ul class="right hide-on-med-and-down">
+            <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
             <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
             <li><a sec:authorize="isAuthenticated()" href="/logout">Вийти</a></li>
             <i class="material-icons">input</i>
