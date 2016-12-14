@@ -13,49 +13,46 @@
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body class="#ede7f6 deep-purple lighten-5">
-<nav th:replace="elements/header :: header"></nav>
-<div class="section no-pad-bot" id="index-banner">
-    <div class="row">
-        <form action="/" method="get" class="col s6">
-            <div class="row">
-                <div class="input-field col s3">
-                    <input name="search" placeholder="Placeholder" type="text" class="validate">
-                </div>
-                <div class="input-field col s3">
-                    <input placeholder="Placeholder" type="submit">
-                </div>
-            </div>
-        </form>
-        <form action="/" method="get" class="col s6">
-            <div class="row">
-                <div class="input-field col s3">
-                    <input name="authorSearch" placeholder="Placeholder" type="text" class="validate">
-                </div>
-                <div class="input-field col s3">
-                    <input placeholder="Placeholder" type="submit">
-                </div>
-            </div>
-        </form>
+<nav th:fragment="header" class="#303f9f indigo darken-2" role="navigation">
+    <img style="position:relative; left:130px;" width="65px" height="65px" class="brand-logo"
+         src="/images/logo.png">
+    <div style="position:relative; bottom: 90px" class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">
+        <div>Електронна бібліотека</div>
+    </a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#" data-activates="slide-out" style="display: block" class="button-collapse">Сортування</a></li>
+            <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
+            <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
+            <li><a sec:authorize="isAuthenticated()" href="/logout">Вийти</a></li>
+            <i class="material-icons">input</i>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+            <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
-
+</nav>
+<div class="section no-pad-bot" id="index-banner">
     <ul id="slide-out" class="side-nav">
         <li><div class="userView">
             <div class="background">
                 <img src="images/office.jpg">
             </div>
-            <a href=":javascript"><img class="circle" src="images/logo.png"></a>
-            <a href=":javascript"><span class="white-text name" th:text="${username}"></span></a>
-            <a href=":javascript"><span class="white-text email" th:text="${email}"></span></a>
+            <a href="javascript:"><img class="circle" src="images/logo.png"></a>
+            <a href="javascript:"><span class="white-text name" th:text="${username}"></span></a>
+            <a href="javascript:"><span class="white-text email" th:text="${email}"></span></a>
         </div></li>
-        <li><a href="/?name=K&sort=bookName,asc" class="waves-effect">Сортувати за назвою за зростанням</a></li>
-        <li><a href="/?name=K&sort=bookName,desc" class="waves-effect">Сортувати за назвою за спаданням</a></li>
-        <li><a href="/?name=K&sort=authors,asc" class="waves-effect">Сортувати за авторами за зростанням</a></li>
-        <li><a href="/?name=K&sort=authors,desc" class="waves-effect">Сортувати за авторами за спаданням</a></li>
-        <li><a href="/?name=K&sort=udkCategory,asc" class="waves-effect">Сортувати за УДК за зростанням</a></li>
-        <li><a href="/?name=K&sort=udkCategory,desc" class="waves-effect">Сортувати за УДК за спаданням</a></li>
+        <li><h6>Сортувати за назвою</h6></li>
+        <li><a href="/?name=K&sort=bookName,asc" class="waves-effect">За зростанням</a></li>
+        <li><a href="/?name=K&sort=bookName,desc" class="waves-effect">За спаданням</a></li>
+        <li><h6>Сортувати за автором</h6></li>
+        <li><a href="/?name=K&sort=authors,asc" class="waves-effect">За зростанням</a></li>
+        <li><a href="/?name=K&sort=authors,desc" class="waves-effect">За спаданням</a></li>
+        <li><h6>Сортувати за УДК</h6></li>
+        <li><a href="/?name=K&sort=udkCategory,asc" class="waves-effect">За зростанням</a></li>
+        <li><a href="/?name=K&sort=udkCategory,desc" class="waves-effect">За спаданням</a></li>
     </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-
+    <br/>
     <div class="container">
         <br><br>
         <h1 class="header center" th:text="${'Вітаємо у бібліотеці, ' + username}">Вітаємо у бібліотеці</h1>
@@ -63,6 +60,33 @@
             <h5 class="header col s12 light">Наша система допоможе вам вибрати для себе гарну книгу!</h5>
         </div>
         <br><br>
+
+        <div class="row">
+            <form action="/" method="get" class="col s6">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input name="search" placeholder="Назва" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s6">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Пошук за назвою
+                            <i class="material-icons right">Пошук за назвою</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <form action="/" method="get" class="col s6">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input name="authorSearch" placeholder="Автор" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s6">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Пошук за автором
+                            <i class="material-icons right">Пошук за автором</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
     </div>
 </div>
