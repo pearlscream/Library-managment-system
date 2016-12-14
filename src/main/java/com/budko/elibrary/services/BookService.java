@@ -20,6 +20,6 @@ public interface BookService {
     Page<Book> getBooksByBookName(Pageable pageable,String bookName);
     Page<Book> getBooksByAuthorName(Pageable pageable,String authorName);
     Book getBookById(Integer bookId);
-    void addBook(BookDTO book) throws IOException, FileExistException;
+    void addBook(BookDTO book,boolean editMode) throws IOException, FileExistException;
     void removeBookById(Integer id);
 }

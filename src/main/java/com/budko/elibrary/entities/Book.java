@@ -38,7 +38,7 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UDK_Number")
     private UDKCategory udkCategory;
-    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<BookCard> bookCards;
 
     public Book() {}

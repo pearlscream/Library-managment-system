@@ -74,7 +74,7 @@ public class AdminController {
             return "addBook";
         }
         try {
-            bookService.addBook(book);
+            bookService.addBook(book,edit);
         } catch (IllegalStateException e) {
             e.printStackTrace();
             return "File uploaded failed:";

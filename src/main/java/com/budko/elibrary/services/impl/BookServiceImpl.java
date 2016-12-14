@@ -60,9 +60,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void addBook(BookDTO bookDTO) throws IOException, FileExistException {
-        String fileName = getRandomFileNameWithExtension(bookDTO.getImage());
-        fileUpload(bookDTO.getImage(),fileName);
+    public void addBook(BookDTO bookDTO,boolean editMode) throws IOException, FileExistException {
+        String fileName;
+        if (!(editMode && bookDTO.getImage().getOriginalFilename().equals(""))) {
+             fileName= getRandomFileNameWithExtension(bookDTO.getImage());
+            fileUpload(bookDTO.getImage(), fileName);
+        } else {
+            Book book = bookRepository.getOne(bookDTO.getBookId());
+            fileName = book.getImageName();
+        }
         Book book = new Book(bookDTO,fileName);
         authorRepository.save(book.getAuthors());
         book.setUdkCategory(udkRepository.findOne(book.getUdkCategory().getId()));

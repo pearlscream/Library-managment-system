@@ -68,16 +68,16 @@
 </div>
 <div class="container">
     <div class="row">
-        <div th:each="book,bookStat : ${books}" class="col s4">
-            <div class="card">
-                <div class="card-content">
-                    <span th:text="${book.bookName}" class="card-title activator grey-text text-darken-4"><i
+        <div th:each="book,bookStat : ${books}" class="col s3">
+            <div class="card" style="max-height: 350px;min-height: 350px; overflow-y: auto">
+                <div style="padding: 15px" class="card-content valign center">
+                    <span th:text="${book.bookName}" style="line-height: 15px;font-size: 18px" class="center card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" th:src="@{'uploads/' + ${book.imageName}}">
+                        <img style="height: 200px;width: 150px" class="valign center-block activator" th:src="@{'uploads/' + ${book.imageName}}">
                     </div>
                     <!--<p th:text="${book.description}"></p>-->
-                    <p><a class="bidHref" href="javascript:">Заказать книгу</a></p>
+                    <p><a class="bidHref" href="javascript:">Замовити книгу</a></p>
                     <div class="row bidBooks">
                         <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
                             <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
@@ -91,7 +91,7 @@
                     </a>
                 </div>
                 <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4" th:text="${book.bookName}"><i
+                <span style="line-height: 21px" class="valign center card-title grey-text text-darken-4" th:text="${book.bookName}"><i
                         class="material-icons right">close</i></span>
                     <div>
                         <span class="materialize-red-text">Авторы:</span>

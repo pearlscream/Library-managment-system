@@ -18,7 +18,7 @@ public class Bid {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "viewer_id")
     private User user;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
     @JoinColumn(name = "book_id")
     private BookCard bookCard;
     @Temporal(TemporalType.DATE)

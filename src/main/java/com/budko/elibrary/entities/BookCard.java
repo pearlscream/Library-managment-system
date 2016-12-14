@@ -14,6 +14,17 @@ public class BookCard {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Book_Id")
     private Book book;
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true,mappedBy = "bookCard")
+    private Bid bid;
+
+    public Bid getBid() {
+        return bid;
+    }
+
+    public void setBid(Bid bid) {
+        this.bid = bid;
+    }
+
     public Integer getId() {
         return id;
     }
