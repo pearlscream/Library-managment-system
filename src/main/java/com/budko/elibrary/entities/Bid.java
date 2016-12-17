@@ -20,13 +20,17 @@ public class Bid {
     private User user;
     @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
     @JoinColumn(name = "book_id")
-    private BookCard bookCard;
+    private Book book;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Calendar bidDate;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -37,12 +41,12 @@ public class Bid {
         this.user = user;
     }
 
-    public BookCard getBookCard() {
-        return bookCard;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookCard(BookCard bookCard) {
-        this.bookCard = bookCard;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Calendar getBidDate() {
@@ -58,7 +62,7 @@ public class Bid {
         return "Bid{" +
                 "id=" + id +
                 ", user=" + user +
-                ", book=" + bookCard +
+                ", book=" + book +
                 ", bidDate=" + bidDate +
                 '}';
     }

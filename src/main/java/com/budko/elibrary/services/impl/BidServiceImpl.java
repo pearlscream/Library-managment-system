@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * @author DBudko.
@@ -20,11 +21,16 @@ public class BidServiceImpl implements BidService {
     private BidRepository bidRepository;
 
     @Override
-    public void addBid(User user, BookCard bookCard) {
+    public void addBid(User user, Book book) {
         Bid bid = new Bid();
         bid.setUser(user);
-        bid.setBookCard(bookCard);
+        bid.setBook(book);
         bid.setBidDate(new GregorianCalendar());
         bidRepository.saveAndFlush(bid);
+    }
+
+    @Override
+    public List<Bid> getAllBids() {
+        return bidRepository.findAll();
     }
 }

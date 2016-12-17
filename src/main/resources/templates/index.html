@@ -14,9 +14,9 @@
 </head>
 <body class="#ede7f6 deep-purple lighten-5">
 <nav th:fragment="header" class="#303f9f indigo darken-2" role="navigation">
-    <img style="position:relative; left:130px;" width="65px" height="65px" class="brand-logo"
+    <img style="position:absolute; left:130px;" width="65px" height="65px" class="brand-logo"
          src="/images/logo.png">
-    <div style="position:relative; bottom: 90px" class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">
+    <div style="position:relative;" class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">
         <div>Електронна бібліотека</div>
     </a>
         <ul class="right hide-on-med-and-down">
@@ -101,12 +101,12 @@
                         <img style="height: 200px;width: 150px" class="valign center-block activator" th:src="@{'uploads/' + ${book.imageName}}">
                     </div>
                     <!--<p th:text="${book.description}"></p>-->
-                    <p><a class="bidHref" href="javascript:">Замовити книгу</a></p>
-                    <div class="row bidBooks">
-                        <div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">
-                            <p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>
-                        </div>
-                    </div>
+                    <p><a class="bidHref" th:href="@{/addBid(bookId=${book.bookId})}">Замовити книгу</a></p>
+                    <!--<div class="row bidBooks">-->
+                        <!--<div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">-->
+                            <!--<p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/editBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
                         <i class="tiny material-icons">mode_edit</i>
                     </a>

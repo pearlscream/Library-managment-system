@@ -2,8 +2,11 @@ package com.budko.elibrary.controllers.admin;
 
 import com.budko.elibrary.controllers.dto.BookDTO;
 import com.budko.elibrary.entities.Author;
+import com.budko.elibrary.entities.Bid;
 import com.budko.elibrary.entities.Book;
 import com.budko.elibrary.exceptions.FileExistException;
+import com.budko.elibrary.services.BidService;
+import com.budko.elibrary.services.BookCardService;
 import com.budko.elibrary.services.BookService;
 import com.budko.elibrary.services.UDKService;
 import org.apache.log4j.Logger;
@@ -15,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +26,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,14 +37,36 @@ import java.util.UUID;
 public class AdminController {
     @Autowired
     private BookService bookService;
-
     @Autowired
     private UDKService udkService;
-
+    @Autowired
+    private BookCardService bookCardService;
     @Autowired
     private Environment environment;
+    @Autowired
+    private BidService bidService;
+
 
     private Logger log = Logger.getLogger(this.getClass());
+
+    @RequestMapping("viewBids")
+    public String viewBids(Model model) {
+        List<Bid> bids = bidService.getAllBids();
+        model.addAttribute("bids",bids);
+        return "bids";
+    }
+
+    @RequestMapping("removeBookCard")
+    public String removeBookCard(@RequestParam(name = "cardId") Integer cardId) {
+        bookCardService.removeBookCard(cardId);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/addBookCard")
+    public String addBookCard(@RequestParam(name = "bookId") Integer bookId, @RequestParam(name = "cardId") Integer cardId) {
+        bookCardService.addBookCardToBook(bookId,cardId);
+        return "redirect:/";
+    }
 
     @RequestMapping("/editBook/{id}")
     public String editBook(Model model,@PathVariable(value = "id") Integer id) {

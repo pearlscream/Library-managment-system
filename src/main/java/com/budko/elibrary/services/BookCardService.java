@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface BookCardService {
-    public BookCard getBookCard(int id);
+    BookCard getBookCard(int id);
+    void addBookCardToBook(Integer id,Integer bookId);
+    void removeBookCard(Integer cardId);
 }

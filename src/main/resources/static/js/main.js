@@ -7,10 +7,6 @@ $(document).ready(function () {
 
 
     authorsCount = $(".author").length + 1;
-    $(".bidHref").click(function (e) {
-        var block = $(this).parent().parent();
-        var element = $(block).find(".bidBooks").toggle();
-    });
     $("#addAuthor").click(function () {
         var authorsBlock="";
         authorsBlock += "<div id=author" + authorsCount + " class=\"author row\">";

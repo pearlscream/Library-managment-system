@@ -68,8 +68,8 @@ public class ContentController {
     @RequestMapping("/addBid")
     public String addBid(Model model,@RequestParam(name = "bookId") int bookId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        BookCard bookCard = bookCardService.getBookCard(bookId);
-        bidService.addBid(user,bookCard);
+        Book book = bookService.getBookById(bookId);
+        bidService.addBid(user,book);
         return "redirect:/";
     }
 
