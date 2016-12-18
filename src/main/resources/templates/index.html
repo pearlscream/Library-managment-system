@@ -140,7 +140,7 @@
                              th:src="@{'uploads/' + ${book.imageName}}">
                     </div>
                     <!--<p th:text="${book.description}"></p>-->
-                    <p><a class="bidHref" th:href="@{/addBid(bookId=${book.bookId})}">Замовити книгу</a></p>
+                    <p><a onclick="alert('Замовлення додано.Чекайте відповіді бібліотекара-')" class="bidHref" th:href="@{/addBid(bookId=${book.bookId})}">Замовити книгу</a></p>
                     <!--<div class="row bidBooks">-->
                     <!--<div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">-->
                     <!--<p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>-->
