@@ -14,6 +14,9 @@ public class BookCard {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Book_Id")
     private Book book;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Viewer_id")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -31,11 +34,19 @@ public class BookCard {
         this.book = book;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     @Override
     public String toString() {
         return "BookCard{" +
                 "id=" + id +
-                ", book=" + book +
                 '}';
     }
 }

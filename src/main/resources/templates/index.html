@@ -21,6 +21,7 @@
     </a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#" data-activates="slide-out" style="display: block" class="button-collapse">Сортування</a></li>
+            <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/viewBids">Переглянути замовлення</a></li>
             <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
             <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
             <li><a sec:authorize="isAuthenticated()" href="/logout">Вийти</a></li>

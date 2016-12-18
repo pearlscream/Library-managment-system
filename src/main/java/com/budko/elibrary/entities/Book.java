@@ -40,6 +40,9 @@ public class Book {
     private UDKCategory udkCategory;
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<BookCard> bookCards;
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
+    @JoinColumn(name = "book_id")
+    private Bid bid;
 
     public Book() {}
     public Book(BookDTO bookDTO,String imageName) {
@@ -55,6 +58,18 @@ public class Book {
         this.setUdkCategory(bookDTO.getUdkCategory());
         this.setBookCards(bookDTO.getBookCards());
         this.setImageName(imageName);
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    public Bid getBid() {
+        return bid;
+    }
+
+    public void setBid(Bid bid) {
+        this.bid = bid;
     }
 
     public Integer getBookId() {

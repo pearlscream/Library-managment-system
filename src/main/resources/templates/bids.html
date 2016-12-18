@@ -20,16 +20,22 @@
             <div class="card-panel white">
                 <div class="black-text" th:text="${bid.user.lastName + ' ' + bid.user.firstName}"></div>
                 <div class="black-text" th:text="${bid.book.bookName}"></div>
-                <div class="input-field">
-                    <select>
-                        <option value="" disabled selected>Виберіть ваш варіант</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-                    <label>Виберіть код екземпляра</label>
-                </div>
-
+                <form action="/admin/giveBook" method="get">
+                    <input th:type="hidden" name="userId" th:value="${bid.user.id}">
+                    <input th:type="hidden" name="bidId" th:value="${bid.id}">
+                    <div class="input-field">
+                        <select name="cardId">
+                            <option value="" disabled selected>Виберіть ваш варіант</option>
+                            <th:block th:each="bookCard,cardStat : ${bid.book.bookCards}">
+                                <option th:value="${bookCard.id}" th:text="${bookCard.id}">Option 1</option>
+                            </th:block>
+                        </select>
+                        <label>Виберіть код екземпляра</label>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Видати книгу
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

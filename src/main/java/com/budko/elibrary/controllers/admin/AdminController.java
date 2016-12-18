@@ -1,14 +1,9 @@
 package com.budko.elibrary.controllers.admin;
 
 import com.budko.elibrary.controllers.dto.BookDTO;
-import com.budko.elibrary.entities.Author;
-import com.budko.elibrary.entities.Bid;
-import com.budko.elibrary.entities.Book;
+import com.budko.elibrary.entities.*;
 import com.budko.elibrary.exceptions.FileExistException;
-import com.budko.elibrary.services.BidService;
-import com.budko.elibrary.services.BookCardService;
-import com.budko.elibrary.services.BookService;
-import com.budko.elibrary.services.UDKService;
+import com.budko.elibrary.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -36,6 +31,8 @@ import java.util.UUID;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
+    private UserService userService;
+    @Autowired
     private BookService bookService;
     @Autowired
     private UDKService udkService;
@@ -49,9 +46,24 @@ public class AdminController {
 
     private Logger log = Logger.getLogger(this.getClass());
 
+
+
+    @RequestMapping("giveBook")
+    public String giveBookForUser(@RequestParam(name = "userId") Integer userId,@RequestParam(name = "cardId") Integer cardId,@RequestParam(name = "bidId") Integer bidId) {
+        User user = userService.getUserById(userId);
+        BookCard bookCard = bookCardService.getBookCard(cardId);
+        bookCard.setUser(user);
+        bookCardService.saveBookCard(bookCard);
+        bidService.removeBid(bidId);
+        return "redirect:/admin/viewBids";
+    }
+
     @RequestMapping("viewBids")
     public String viewBids(Model model) {
         List<Bid> bids = bidService.getAllBids();
+        for(Bid bid : bids) {
+            bid.getBook().setBookCards(bookCardService.getBookCardByBookInLibrary(bid.getBook()));
+        }
         model.addAttribute("bids",bids);
         return "bids";
     }

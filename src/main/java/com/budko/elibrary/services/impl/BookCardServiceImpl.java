@@ -8,6 +8,9 @@ import com.budko.elibrary.services.BookCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author DBudko.
  */
@@ -33,5 +36,15 @@ public class BookCardServiceImpl implements BookCardService {
     @Override
     public void removeBookCard(Integer cardId) {
         bookCardRepository.delete(cardId);
+    }
+
+    @Override
+    public Set<BookCard> getBookCardByBookInLibrary(Book book) {
+        return bookCardRepository.getBookCardsByBookInLibrary(book);
+    }
+
+    @Override
+    public void saveBookCard(BookCard bookCard) {
+        bookCardRepository.saveAndFlush(bookCard);
     }
 }

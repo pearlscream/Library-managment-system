@@ -33,4 +33,14 @@ public class BidServiceImpl implements BidService {
     public List<Bid> getAllBids() {
         return bidRepository.findAll();
     }
+
+    @Override
+    public List<Bid> getBidsInLibrary() {
+        return bidRepository.findBidsInLibrary();
+    }
+
+    @Override
+    public void removeBid(Integer id) {
+        bidRepository.delete(id);
+    }
 }
