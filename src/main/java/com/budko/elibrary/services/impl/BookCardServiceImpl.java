@@ -48,4 +48,16 @@ public class BookCardServiceImpl implements BookCardService {
     public void saveBookCard(BookCard bookCard) {
         bookCardRepository.saveAndFlush(bookCard);
     }
+
+    @Override
+    public List<BookCard> getDebtorsBookCards() {
+        return bookCardRepository.getDebtorsBookCards();
+    }
+
+    @Override
+    public void removeDebtor(Integer cardId) {
+        BookCard bookCard = bookCardRepository.findOne(cardId);
+        bookCard.setUser(null);
+        bookCardRepository.saveAndFlush(bookCard);
+    }
 }

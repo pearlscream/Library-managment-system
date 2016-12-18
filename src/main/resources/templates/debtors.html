@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Електронна бібліотека</title>
+
+    <!-- CSS  -->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link th:href="@{/css/material_icons.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<nav th:replace="elements/header :: header"></nav>
+<br>
+<div class="container" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <div class="row" th:each="bookCard,cardStat : ${bookCards}">
+        <div class="col s6">
+            <div class="card-panel white">
+                <div class="black-text" th:text="${bookCard.user.lastName + ' ' + bookCard.user.firstName}"></div>
+                <div class="black-text" th:text="${bookCard.book.bookName}"></div>
+                <a th:href="@{'/admin/removeDebtor?cardId=' + ${bookCard.id}}" class="offset-s2 btn-floating indigo darken-2">
+                    <i class="tiny material-icons">delete</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/materialize.js"></script>
+<script src="/js/init.js"></script>
+<script src="/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>
+</body>
+<footer th:replace="elements/footer :: footer"></footer>
+</html>

@@ -44,6 +44,18 @@ public class AdminController {
 
     private Logger log = Logger.getLogger(this.getClass());
 
+    @RequestMapping(value = "removeDebtor")
+    public String removeDebtor(@RequestParam(value = "cardId") Integer cardId) {
+        bookCardService.removeDebtor(cardId);
+        return "debtors";
+    }
+
+    @RequestMapping(value = "debtors")
+    public String getDebtors(Model model) {
+        model.addAttribute("bookCards", bookCardService.getDebtorsBookCards());
+        return "debtors";
+    }
+
     @RequestMapping(value = "getBookCards/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Set<BookCard> getBookCards(@PathVariable Integer id) {

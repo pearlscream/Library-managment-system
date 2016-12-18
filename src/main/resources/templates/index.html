@@ -22,8 +22,12 @@
         <ul class="right hide-on-med-and-down">
             <li><a href="#" data-activates="slide-out" style="display: block" class="button-collapse">Сортування</a>
             </li>
-            <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/viewBids">Переглянути замовлення</a></li>
-            <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/debtors">Переглянути боржників</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/viewBids">Переглянути замовлення</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
+            </ul>
+            <li><a sec:authorize="hasAuthority('ADMIN')" class='dropdown-button' href='#' data-activates='dropdown1'>Адміністратор</a></li>
             <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
             <li><a sec:authorize="isAuthenticated()" href="/logout">Вийти</a></li>
             <i class="material-icons">input</i>

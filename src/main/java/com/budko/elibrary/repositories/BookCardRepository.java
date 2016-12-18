@@ -16,4 +16,7 @@ import java.util.Set;
 public interface BookCardRepository extends JpaRepository<BookCard,Integer> {
     @Query("SELECT bookCard FROM BookCard bookCard where bookCard.book = ?1 AND bookCard.user = null")
     Set<BookCard> getBookCardsByBookInLibrary(Book book);
+
+    @Query("SELECT bookCard From BookCard bookCard where bookCard.user is not null")
+    List<BookCard> getDebtorsBookCards();
 }

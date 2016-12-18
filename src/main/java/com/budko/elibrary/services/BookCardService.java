@@ -17,4 +17,6 @@ public interface BookCardService {
     void addBookCardToBook(Integer id,Integer bookId);
     void removeBookCard(Integer cardId);
     void saveBookCard(BookCard bookCard);
+    List<BookCard> getDebtorsBookCards();
+    void removeDebtor(Integer cardId);
 }
