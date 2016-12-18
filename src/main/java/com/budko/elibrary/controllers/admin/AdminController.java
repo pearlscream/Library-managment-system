@@ -10,10 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -46,7 +44,18 @@ public class AdminController {
 
     private Logger log = Logger.getLogger(this.getClass());
 
+    @RequestMapping(value = "getBookCards/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<BookCard> getBookCards(@PathVariable Integer id) {
+        Set<BookCard> bookCards = bookService.getBookById(id).getBookCards();
+        return bookCards;
+    }
 
+    @RequestMapping("removeBid")
+    public String removeBid(@RequestParam(name = "bidId") Integer bidId) {
+        bidService.removeBid(bidId);
+        return "redirect:/admin/viewBids";
+    }
 
     @RequestMapping("giveBook")
     public String giveBookForUser(@RequestParam(name = "userId") Integer userId,@RequestParam(name = "cardId") Integer cardId,@RequestParam(name = "bidId") Integer bidId) {
@@ -76,7 +85,7 @@ public class AdminController {
 
     @RequestMapping("/addBookCard")
     public String addBookCard(@RequestParam(name = "bookId") Integer bookId, @RequestParam(name = "cardId") Integer cardId) {
-        bookCardService.addBookCardToBook(bookId,cardId);
+        bookCardService.addBookCardToBook(cardId,bookId);
         return "redirect:/";
     }
 

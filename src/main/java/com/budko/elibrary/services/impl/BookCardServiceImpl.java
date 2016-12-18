@@ -25,13 +25,14 @@ public class BookCardServiceImpl implements BookCardService {
         return bookCardRepository.findOne(id);
     }
 
+
     public void addBookCardToBook(Integer id,Integer bookId) {
         Book book = bookRepository.findOne(bookId);
         BookCard bookCard = new BookCard();
         bookCard.setId(id);
-        book.getBookCards().add(bookCard);
-        bookRepository.saveAndFlush(book);
-    }
+        bookCard.setBook(book);
+        bookCardRepository.saveAndFlush(bookCard);
+       }
 
     @Override
     public void removeBookCard(Integer cardId) {

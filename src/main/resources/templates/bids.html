@@ -35,6 +35,9 @@
                     <button class="btn waves-effect waves-light" type="submit" name="action">Видати книгу
                         <i class="material-icons right">send</i>
                     </button>
+                    <a th:href="@{'/admin/removeBid?bidId=' + ${bid.id}}" class="offset-s2 btn-floating indigo darken-2">
+                        <i class="tiny material-icons">delete</i>
+                    </a>
                 </form>
             </div>
         </div>

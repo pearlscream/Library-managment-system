@@ -1,5 +1,7 @@
 package com.budko.elibrary.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -13,9 +15,11 @@ public class BookCard {
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Book_Id")
+    @JsonIgnore
     private Book book;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Viewer_id")
+    @JsonIgnore
     private User user;
 
     public Integer getId() {

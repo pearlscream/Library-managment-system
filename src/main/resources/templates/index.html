@@ -20,7 +20,8 @@
         <div>Електронна бібліотека</div>
     </a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#" data-activates="slide-out" style="display: block" class="button-collapse">Сортування</a></li>
+            <li><a href="#" data-activates="slide-out" style="display: block" class="button-collapse">Сортування</a>
+            </li>
             <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/viewBids">Переглянути замовлення</a></li>
             <li><a sec:authorize="hasAuthority('ADMIN')" href="/admin/addBook">Додати нову книгу</a></li>
             <li><a sec:authorize="!isAuthenticated()" href="/login">Увійти</a></li>
@@ -35,14 +36,16 @@
 </nav>
 <div class="section no-pad-bot" id="index-banner">
     <ul id="slide-out" class="side-nav">
-        <li><div class="userView">
-            <div class="background">
-                <img src="images/office.jpg">
+        <li>
+            <div class="userView">
+                <div class="background">
+                    <img src="images/office.jpg">
+                </div>
+                <a href="javascript:"><img class="circle" src="images/logo.png"></a>
+                <a href="javascript:"><span class="white-text name" th:text="${username}"></span></a>
+                <a href="javascript:"><span class="white-text email" th:text="${email}"></span></a>
             </div>
-            <a href="javascript:"><img class="circle" src="images/logo.png"></a>
-            <a href="javascript:"><span class="white-text name" th:text="${username}"></span></a>
-            <a href="javascript:"><span class="white-text email" th:text="${email}"></span></a>
-        </div></li>
+        </li>
         <li><h6>Сортувати за назвою</h6></li>
         <li><a href="/?name=K&sort=bookName,asc" class="waves-effect">За зростанням</a></li>
         <li><a href="/?name=K&sort=bookName,desc" class="waves-effect">За спаданням</a></li>
@@ -55,6 +58,35 @@
     </ul>
     <br/>
     <div class="container">
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Екземпляри книги</h4>
+                <!--<p>A bunch of text</p>-->
+                <form action="/admin/addBookCard" method="get" class="col s6">
+                    <input type="hidden" name="bookId" id="modalBookId">
+                    <div class="row">
+                        <div class="col s12" id="bookCards">
+                            <span>Hello</span>
+                            <a class="offset-s2 btn-floating indigo darken-2">
+                                <i class="tiny material-icons">mode_edit</i></a>
+                        </div>
+                        <div class="input-field col s12">
+                            <input name="cardId" placeholder="Номер книги" type="text" class="validate">
+                        </div>
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Додати екземппляр
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+
         <br><br>
         <h1 class="header center" th:text="${'Вітаємо у бібліотеці, ' + username}">Вітаємо у бібліотеці</h1>
         <div class="row center">
@@ -96,27 +128,37 @@
         <div th:each="book,bookStat : ${books}" class="col s3">
             <div class="card" style="max-height: 350px;min-height: 350px; overflow-y: auto">
                 <div style="padding: 15px" class="card-content valign center">
-                    <span th:text="${book.bookName}" style="line-height: 15px;font-size: 18px" class="center card-title activator grey-text text-darken-4"><i
+                    <span th:text="${book.bookName}" style="line-height: 15px;font-size: 18px"
+                          class="center card-title activator grey-text text-darken-4"><i
                             class="material-icons right">more_vert</i></span>
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img style="height: 200px;width: 150px" class="valign center-block activator" th:src="@{'uploads/' + ${book.imageName}}">
+                        <img style="height: 200px;width: 150px" class="valign center-block activator"
+                             th:src="@{'uploads/' + ${book.imageName}}">
                     </div>
                     <!--<p th:text="${book.description}"></p>-->
                     <p><a class="bidHref" th:href="@{/addBid(bookId=${book.bookId})}">Замовити книгу</a></p>
                     <!--<div class="row bidBooks">-->
-                        <!--<div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">-->
-                            <!--<p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>-->
-                        <!--</div>-->
+                    <!--<div class="col s12" th:each="bookCard,bookCardStat : ${book.bookCards}">-->
+                    <!--<p><a th:text="${bookCard.id}" th:href="@{/addBid(bookId=${bookCard.id})}"></a></p>-->
                     <!--</div>-->
-                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/editBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
+                    <!--</div>-->
+                    <a sec:authorize="hasAuthority('ADMIN')"
+                       th:onclick="'javascript:openModal1(' + ${book.bookId} + ')'"
+                       class="offset-s2 btn-floating indigo darken-2">
+                        <i class="tiny material-icons">add</i>
+                    </a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/editBook/' + book.bookId}"
+                       class="offset-s2 btn-floating indigo darken-2">
                         <i class="tiny material-icons">mode_edit</i>
                     </a>
-                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/removeBook/' + book.bookId}" class="offset-s2 btn-floating indigo darken-2">
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin/removeBook/' + book.bookId}"
+                       class="offset-s2 btn-floating indigo darken-2">
                         <i class="tiny material-icons">delete</i>
                     </a>
                 </div>
                 <div class="card-reveal">
-                <span style="line-height: 21px" class="valign center card-title grey-text text-darken-4" th:text="${book.bookName}"><i
+                <span style="line-height: 21px" class="valign center card-title grey-text text-darken-4"
+                      th:text="${book.bookName}"><i
                         class="material-icons right">close</i></span>
                     <div>
                         <span class="materialize-red-text">Авторы:</span>
@@ -179,7 +221,6 @@
 <footer th:replace="elements/footer :: footer"></footer>
 
 
-
 <!--  Scripts-->
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/materialize.js"></script>
@@ -187,8 +228,44 @@
 <script src="js/main.js"></script>
 
 <script>
-    $(".button-collapse").sideNav();
+    //    /admin/getBookCards/27
+    //init the modal
+    $('.modal-trigger').leanModal();
+
+
+    function getCardElem(elem) {
+        var html = '<span>' + elem.id + '</span>'+
+            '<a href="admin/removeBookCard?cardId=' + elem.id + '"class="offset-s2 btn-floating indigo darken-2">' +
+            '<i class="tiny material-icons">delete</i></a>';
+        return html;
+    }
+
+    function openModal1(bookId) {
+        $.ajax({
+            url: '/admin/getBookCards/' + bookId,
+            dataType: "json",
+            success: function (data) {
+                var html = "";
+                $(data).each(function (index,elem) {
+                    var htmlElement = getCardElem(elem);
+                    console.log("1");
+                    console.log(elem);
+                    console.log(htmlElement);
+                    html += htmlElement;
+                });
+                $("#bookCards").html(html);
+                console.log(data);
+            }
+        });
+        $('#modalBookId').val(bookId);
+
+        $('#modal1').openModal();
+    }
+    ;
+
+
 </script>
+
 
 </body>
 </html>
